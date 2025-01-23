@@ -1,0 +1,99 @@
+body {
+  background-color: #BC2C0A;
+}
+
+nav {
+  display: flex;
+  font-family: nav_font;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #fcf3ff;
+}
+
+nav img {
+  height: 100%;
+  max-height: 4rem;
+  width: auto;
+  margin: -1rem -1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #000000;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  flex: 1;
+  justify-content: space-evenly;
+  margin-left: 10%;
+}
+
+nav li {
+  padding-left: 1rem;
+}
+
+
+
+
+@font-face {
+    font-family: 'nav_font';
+    src: url('Assets/FuturaStd-Light.otf');
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.strikethrough-grow {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  overflow: visible;
+}
+
+.strikethrough-grow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 0.3s cubic-bezier(0.4, 1, 0.8, 1);
+}
+
+.strikethrough-grow:hover::before {
+  transform: scaleX(1);
+  transform-origin: 0% 50%;
+  background-color: #660033;
+}
+
+.strikethrough-grow div {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.4, 1, 0.8, 1);
+}
+
+.strikethrough-grow:hover div {
+  color: #D6421E;
+  transform: scale(1.1);
+}
