@@ -8,7 +8,7 @@ nav {
   justify-content: space-between;
   padding: 1rem 2rem;
   background-color: #fcf3ff;
-}
+} 
 
 nav img {
   height: 100%;
@@ -23,12 +23,24 @@ nav a {
   font-size: clamp(1rem, 2vw, 1.5rem);
 }
 
+.image-button button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.image-button img {
+  max-width: 100%;
+  height: auto;
+}
+
 nav ul {
   display: flex;
   list-style: none;
   flex: 1;
   justify-content: space-evenly;
-  margin-left: 10%;
+  margin-left: 5%;
 }
 
 nav li {
