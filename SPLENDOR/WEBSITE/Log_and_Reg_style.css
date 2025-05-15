@@ -104,17 +104,6 @@ button:hover {
     100% { background-position: 50% 0%; }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 .register-container {
     position: relative;
     background: linear-gradient(
@@ -198,12 +187,6 @@ button:hover {
     max-height: 90vh;
     overflow-y: auto;
 }
-
-
-
-
-
-
 
 .login-form {
     display: flex;
@@ -326,7 +309,8 @@ input::placeholder {
 }
 
 .remember-me input:checked + .checkmark {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .register-text {
@@ -342,18 +326,18 @@ input::placeholder {
     text-decoration: none !important; 
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(3px);
-    padding: 3px 8px;
-    border-radius: 4px;
+    padding: 8px 20px;
+    border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     font-weight: 600;
     transition: all 0.2s ease;
-    margin-left: 4px; 
+    font-size: 1rem;
 }
 
 .register-here:hover {
     background: rgba(255, 255, 255, 0.25);
     transform: translateY(-1px);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .small-divider {
@@ -361,7 +345,6 @@ input::placeholder {
     height: 1px;
     margin: 20px 0; 
 }
-
 
 .login-container select.glass-select {
     width: 100%;
@@ -442,7 +425,6 @@ input::placeholder {
     transition: all 0.3s ease;
 }
 
-
 select.glass-select {
     color: white !important;
 }
@@ -451,10 +433,31 @@ select.glass-select:invalid {
     color: rgba(255,255,255,0.7) !important;
 }
 
-
 .strength-bar.weak { width: 30%; background: #ff4757; }
 .strength-bar.medium { width: 60%; background: #ffa502; }
 .strength-bar.strong { width: 100%; background: #2ed573; }
+
+.logout-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
 
 
 

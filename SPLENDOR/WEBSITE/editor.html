@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.css">
+    <link rel="stylesheet" href="editor.css">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            min-width: 300px;
+        }
+
+        .divider {
+            width: 6px;
+            background: linear-gradient(to right, #ccc, #ddd, #ccc);
+            cursor: col-resize;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .divider:hover {
+            background: linear-gradient(to right, #bbb, #ccc, #bbb);
+        }
+
+        .divider::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 1px;
+        }
+
+        .divider.dragging {
+            background: linear-gradient(to right, #aaa, #bbb, #aaa);
+        }
+
+        .divider.dragging::after {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .preview-container {
+            flex: 1;
+            padding: 20px;
+            background: #fff;
+            min-width: 200px;
+        }
+
+        .editor-tabs {
+            display: flex;
+            background: #f5f5f5;
+        }
+
+        .editor-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            user-select: none;
+        }
+
+        .editor-tab.active {
+            background: #fff;
+            font-weight: bold;
+        }
+
+        .CodeMirror {
+            height: calc(100vh - 120px) !important;
+            flex: 1;
+        }
+
+        #previewFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .toolbar {
+            padding: 10px;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        button {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <div class="toolbar">
+            <h2 id="projectTitle">Loading Project...</h2>
+            <button id="saveButton">Save</button>
+        </div>
+        <div class="editor-tabs">
+            <div class="editor-tab active" data-language="html">HTML</div>
+            <div class="editor-tab" data-language="css">CSS</div>
+            <div class="editor-tab" data-language="js">JavaScript</div>
+        </div>
+        <textarea id="editor"></textarea>
+    </div>
+    <div class="divider"></div>
+    <div class="preview-container">
+        <iframe id="previewFrame"></iframe>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
+    <script src="auth.js"></script>
+    <script src="editor.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendor Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Spectral:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Log_and_Reg_style.css">
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
+</head>
+<body class="LoginBG">
+    <div class="login-container">
+        <form class="login-form" id="loginForm">
+            <h2>WELCOME BACK</h2>
+            <div class="input-group">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="loginPassword" placeholder="Password" required>
+            </div>
+            <button type="submit">Sign In</button>
+            <div class="remember-register">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <span class="checkmark"></span>
+                    Remember me
+                </label>
+            </div>
+            <div class="small-divider"></div> 
+            <div class="divider">Don't have an account yet?</div>
+            <div class="download-prompt">
+                <a href="Register.html" class="register-here">Register here</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const client = new Appwrite.Client()
+            .setEndpoint('https://fra.cloud.appwrite.io/v1')
+            .setProject('680364d1000477ec420b');
+
+        const account = new Appwrite.Account(client);
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                // Create session
+                const session = await account.createEmailPasswordSession(email, password);
+                console.log('Session created:', session);
+                
+                // Verify session is active
+                const currentSession = await account.getSession('current');
+                if (!currentSession) {
+                    throw new Error('Failed to create active session');
+                }
+                
+
+                const user = await account.get();
+                
+                console.log('Login successful:', user);
+                
+
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Login failed: ' + (error.message || 'Unknown error'));
+            }
+        });
+
+        const previewFrame = document.getElementById('previewFrame');
+        previewFrame.srcdoc = `
+          <!DOCTYPE html>
+          <html>
+            <head> 
+              <style>${css}</style>
+            </head>
+            <body>
+              ${html}
+              <script>${js}<\/script>
+            </body>
+          </html>
+        `;
+
+        setInterval(() => {
+            const previewFrame = document.getElementById('previewFrame');
+            try {
+                if (previewFrame && previewFrame.contentWindow.location.href !== 'about:blank') {
+
+                    previewFrame.srcdoc = yourLatestPreviewContent;
+                }
+            } catch (e) {
+
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

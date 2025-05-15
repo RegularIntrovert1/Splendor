@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendor Web Client</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        body.fade-in {
+            opacity: 1;
+        }
+        
+
+        .board, .cards-container {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.35) rgba(255,255,255,0.08);
+            overflow: overlay;  
+        }
+
+        .board::-webkit-scrollbar,
+        .cards-container::-webkit-scrollbar {
+            width: 14px;
+            background: transparent;
+        }
+
+        .board::-webkit-scrollbar-track,
+        .cards-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            margin: 4px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+        }
+
+        .board::-webkit-scrollbar-thumb,
+        .cards-container::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.25);
+            border-radius: 10px;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            backdrop-filter: blur(12px) saturate(200%);
+            -webkit-backdrop-filter: blur(12px) saturate(200%);
+            box-shadow: 
+                inset 0 0 0 1px rgba(255,255,255,0.1),
+                inset 0 0 8px rgba(255,255,255,0.2),
+                0 0 12px rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .board::-webkit-scrollbar-thumb:hover,
+        .cards-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.35);
+            border: 3px solid transparent;
+            box-shadow: 
+                inset 0 0 0 1px rgba(255,255,255,0.15),
+                inset 0 0 10px rgba(255,255,255,0.3),
+                0 0 14px rgba(255,255,255,0.15);
+        }
+
+        .board::-webkit-scrollbar-thumb:active,
+        .cards-container::-webkit-scrollbar-thumb:active {
+            background: rgba(255,255,255,0.45);
+            border: 3px solid transparent;
+            box-shadow: 
+                inset 0 0 0 1px rgba(255,255,255,0.2),
+                inset 0 0 12px rgba(255,255,255,0.4),
+                0 0 16px rgba(255,255,255,0.2);
+        }
+
+
+        @supports (scrollbar-width: thin) {
+            .board, .cards-container {
+                scrollbar-width: thin;
+                scrollbar-color: rgba(255,255,255,0.25) rgba(255,255,255,0.03);
+            }
+        }
+
+
+        .board {
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .cards-container {
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 100%;
+            padding-right: 14px; 
+        }
+
+        .project-card {
+            box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.18), 0 1.5px 8px 0 rgba(0,0,0,0.10);
+            transition: box-shadow 0.25s, transform 0.18s;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 16px 40px 0 rgba(44, 62, 80, 0.28), 0 4px 16px 0 rgba(0,0,0,0.13);
+            transform: translateY(-4px) scale(1.02);
+        }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="image-button">
+        <button>
+          <img src="Assets/Logo3.png" alt="Button Image">
+        </button>
+      </a>
+      <ul>
+        <li><a href="#1" class="strikethrough-grow"><div>Projects</div></a></li>
+        <li><a href="#1" class="strikethrough-grow"><div>Invites</div></a></li>
+        <li><a href="#1" class="strikethrough-grow"><div>Messages</div></a></li>
+        <li><a href="#1" class="strikethrough-grow"><div>Splendor Ai</div></a></li>
+        <li><a href="#2" class="strikethrough-grow"><div>Profile</div></a></li>
+        <li id="logoutButton" style="display: none;"><a href="#" class="strikethrough-grow"><div>Logout</div></a></li>
+      </ul>
+    </nav>
+
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div class="sidebar-welcome" id="userDisplay">
+          <!-- Welcome message will be populated here -->
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-content">
+          <div class="sidebar-tags">
+            <h3>Tags</h3>
+            <div id="userTags" class="sidebar-tags-container">
+              <!-- Tags will be populated here -->
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="board">
+          <div class="cards-container" id="cardsContainer">
+            <!-- Cards will be populated here -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="cards.js"></script>
+    <script>
+    (function() {
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('fade-in');
+        });
+
+        document.addEventListener('click', function(e) {
+            let link = e.target.closest('a');
+            if (!link && e.target.tagName === 'BUTTON' && e.target.parentElement && e.target.parentElement.tagName === 'A') {
+                link = e.target.parentElement;
+            }
+            if (link && link.getAttribute('href') && link.getAttribute('href').match(/create_project\.html$/i)) {
+                e.preventDefault();
+                document.body.classList.remove('fade-in');
+                setTimeout(function() {
+                    window.location = link.href;
+                }, 500);
+            }
+        });
+    })();
+    </script>
+  </body>
+</html>

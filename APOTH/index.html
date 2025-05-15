@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>APOTH</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      cursor: none;
+    }
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url('ASSETS/HERO.jpg') center/cover no-repeat;
+      overflow: hidden;
+    }
+    .title {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      transform: translateY(-50%);
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 5vw;
+      color: #ffffff;
+      mix-blend-mode: difference;
+      letter-spacing: 0.5vw;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .pixel-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      pointer-events: none;
+    }
+    .pixel {
+      background: rgba(255,255,255,0);
+      width: 100%;
+      height: 100%;
+      transition: 0.5s ease-out;
+    }
+    .pixel.highlight {
+      background: rgba(255,255,255,0.568);
+    }
+    .pixel.highlight.special-area {
+      background: rgba(255,255,255,0.05);
+    }
+    .edge-row {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      font-family: monospace;
+      font-size: 2rem;
+      color: rgba(255,255,255,0);
+      pointer-events: auto;
+      cursor: default;
+    }
+    .edge-row.horizontal {
+      letter-spacing: 1rem;
+    }
+    .edge-row.vertical {
+      flex-direction: column;
+      line-height: 2rem;
+    }
+    .left-top {
+      left: 2%;
+      top: 5%;
+    }
+    .left-bottom {
+      left: 2%;
+      bottom: 5%;
+    }
+    .right-bottom {
+      right: 2%;
+      bottom: 10%;
+    }
+    .top-center {
+      top: 2%;
+      left: 45%;
+      transform: translateX(-50%);
+    }
+    .top-right {
+      top: 2%;
+      right: 5%;
+    }
+    .float-left-right {
+      animation: floatLeftRight 4s ease-in-out infinite alternate;
+    }
+    .float-up-down {
+      animation: floatUpDown 4s ease-in-out infinite alternate;
+    }
+    @keyframes floatLeftRight {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(10px); }
+    }
+    @keyframes floatUpDown {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(10px); }
+    }
+    .text-reveal {
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+      width: 20%;
+      max-height: 50%;
+      overflow: visible;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 1rem;
+      color: #ffffff;
+      line-height: 1.5;
+      opacity: 0;
+    }
+    .custom-cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out;
+    }
+    .text-reveal .line {
+      display: block;
+      overflow: hidden;
+      height: 1.5em;
+    }
+    .text-reveal .word {
+      display: inline-block;
+      opacity: 0.3;
+      transform: translateY(150%);
+      will-change: transform;
+    }
+    .new-section {
+      width: 100%;
+      height: 100vh;
+      background-color: #050100;
+      position: relative;
+      overflow: hidden;
+    }
+    .new-section .scrolling-text-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+    .new-section .scrolling-text {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Oblata', sans-serif;
+      font-size: 35vh;
+      color: #ffffff;
+      opacity: 0.1;
+      white-space: nowrap;
+      will-change: transform, opacity;
+    }
+    .full-screen-section {
+      width: 100%;
+      height: 100vh;
+      background-color: #1c1c1e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 5vh;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+    @font-face {
+      font-family: 'Oblata';
+      src: url('ASSETS/OblataDisplayRegular-Zp8o8.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      display: none;
+    }
+    html, body {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .new-section::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+      animation: grainEffect 0.2s steps(4, end) infinite;
+    }
+    @keyframes grainEffect {
+      0%   { transform: translate(2%, -2%); }
+      10%  { transform: translate(-2%, 2%); }
+      20%  { transform: translate(2%, -3%); }
+      30%  { transform: translate(-3%, 2%); }
+      40%  { transform: translate(2%, -2%); }
+      50%  { transform: translate(-2%, 3%); }
+      60%  { transform: translate(3%, -3%); }
+      70%  { transform: translate(-2%, 2%); }
+      80%  { transform: translate(3%, -2%); }
+      90%  { transform: translate(-3%, 3%); }
+      100% { transform: translate(2%, -2%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div>
+  <div class="hero">
+    <div class="title">APOTH</div>
+    <div class="pixel-grid"></div>
+    <div class="edge-row vertical left-top">x<br>x<br>x</div>
+    <div class="edge-row vertical left-bottom float-left-right">+<br>+<br>+</div>
+    <div class="edge-row vertical right-bottom">x<br>x<br>x</div>
+    <div class="edge-row horizontal top-center">+++</div>
+    <div class="edge-row horizontal top-right float-up-down">+++</div>
+    <div class="text-reveal" id="textReveal">
+        Apoth is a transformative force in the realm of visionary programming, blending creativity and precision to reshape the very essence of development. It unlocks new dimensions where code flows like art, enabling you to craft experiences that transcend the ordinary. With Apoth, you're not just programming—you're exploring uncharted realms of possibility.
+    </div>
+  </div>
+  <div class="new-section">
+    <div class="scrolling-text-mask">
+      <div class="scrolling-text">IT'S NOT ABOUT IDEAS, IT'S ABOUT MAKING THEM HAPPEN.</div>
+    </div>
+  </div>
+  <div class="full-screen-section" id="section-three">
+    <p>Section Three</p>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cursor = document.querySelector('.custom-cursor');
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+      });
+      document.addEventListener('mousedown', () => {
+        cursor.style.transform = `translate(-50%, -50%) scale(0.7)`;
+      });
+      document.addEventListener('mouseup', () => {
+        cursor.style.transform = `translate(-50%, -50%) scale(1)`;
+      });
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const title = document.querySelector('.title');
+      if (title) {
+        const originalText = title.innerText;
+        title.innerHTML = '';
+        const letters = originalText.split('');
+        const elements = [];
+        const tweenDistance = 400;
+        letters.forEach(letter => {
+          const span = document.createElement('span');
+          span.innerText = letter;
+          span.style.display = 'inline-block';
+          span.dataset.speed = (0.2 + Math.random() * 0.8).toFixed(2);
+          title.appendChild(span);
+          elements.push(span);
+        });
+        window.addEventListener('scroll', () => {
+          const scrollY = window.scrollY;
+          elements.forEach(span => {
+            const speed = parseFloat(span.dataset.speed);
+            const movement = -(scrollY * speed);
+            span.style.transform = `translateY(${movement}px)`;
+            const opacity = Math.max(0, 1 - (scrollY / tweenDistance));
+            span.style.opacity = opacity;
+          });
+        });
+      }
+    });
+    gsap.fromTo('.title',
+      { opacity: 0, x: -200, skewX: 20, scale: 0.8 },
+      { opacity: 1, x: 0, skewX: 0, scale: 1, duration: 1.5, ease: "power3.out" }
+    );
+    gsap.to('.edge-row', {
+      color: 'rgba(255,255,255,0.8)',
+      stagger: 0.2,
+      duration: 1.2,
+      ease: 'power2.out'
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const hero = document.querySelector('.hero');
+      const gridEl = hero.querySelector('.pixel-grid');
+      const cellSize = hero.clientHeight / 10;
+      const rows = 10;
+      const cols = Math.ceil(hero.clientWidth / cellSize);
+      gridEl.style.gridTemplateRows = `repeat(${rows}, ${cellSize}px)`;
+      gridEl.style.gridTemplateColumns = `repeat(${cols}, ${cellSize}px)`;
+      const pixels = [];
+      for (let i = 0, total = rows * cols; i < total; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'pixel';
+        gridEl.appendChild(cell);
+        pixels.push(cell);
+      }
+      hero.addEventListener('mousemove', e => {
+        const { left, top, width, height } = hero.getBoundingClientRect();
+        const x = e.clientX - left, y = e.clientY - top;
+        const col = Math.floor(x / cellSize),
+              row = Math.floor(y / cellSize),
+              idx = row * cols + col;
+        if (pixels[idx]) {
+          const pix = pixels[idx];
+          pix.classList.add('highlight');
+          const textRevealRect = document.querySelector('.text-reveal').getBoundingClientRect();
+          const pixelRect = pix.getBoundingClientRect();
+          const isTouchingText = !(
+            pixelRect.right < textRevealRect.left ||
+            pixelRect.left > textRevealRect.right ||
+            pixelRect.bottom < textRevealRect.top ||
+            pixelRect.top > textRevealRect.bottom
+          );
+          if (isTouchingText) {
+            pix.classList.add('special-area');
+          } else {
+            pix.classList.remove('special-area');
+          }
+          clearTimeout(pix._fadeTimeout);
+          pix._fadeTimeout = setTimeout(() => {
+            pix.classList.remove('highlight');
+            pix.classList.remove('special-area');
+          }, 50);
+        }
+      });
+      const textReveal = document.getElementById('textReveal');
+      const split = new SplitType(textReveal, { types: 'lines, words' });
+      split.lines.forEach((line, index) => {
+        gsap.fromTo(line.children, {
+          y: '150%',
+          opacity: 0.3,
+          scaleY: 1.2
+        }, {
+          y: '0%',
+          opacity: 0.3,
+          scaleY: 1,
+          duration: 0.5,
+          ease: 'power2.out',
+          stagger: {
+            each: 0.03,
+            from: 'start'
+          },
+          delay: 1.5 + index * 0.3
+        });
+      });
+      gsap.to(textReveal, { opacity: 1, duration: 0.1, delay: 1.5 });
+      hero.addEventListener('mousemove', e => {
+        split.words.forEach(word => {
+          const rect = word.getBoundingClientRect();
+          const dx = e.clientX - (rect.left + rect.width / 2);
+          const dy = e.clientY - (rect.top + rect.height / 2);
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const maxDistance = 100;
+          const opacity = Math.max(0.3, 1 - distance / maxDistance);
+          word.style.opacity = opacity;
+        });
+      });
+      gsap.registerPlugin(ScrollTrigger);
+      const scrollTextElement = document.querySelector('.new-section .scrolling-text');
+      const newSectionElement = document.querySelector('.new-section');
+      if (scrollTextElement && newSectionElement) {
+        let speed = 0.08;
+        let targetSpeed = 0.08;
+        let opacity = 0.08;
+        let targetOpacity = 0.08;
+        let lastScrollY = window.scrollY;
+        let isScrolling = false;
+        let scrollTimeout;
+        let x = 0;
+        const maxSpeed = 2;
+        const maxOpacity = 0.3;
+        const minOpacity = 0.18;
+        const minSpeed = 1;
+        gsap.set(scrollTextElement, { x, opacity });
+        gsap.ticker.add(() => {
+          if (isScrolling) {
+            speed += (targetSpeed - speed) * 0.08;
+          } else {
+            speed = targetSpeed;
+          }
+          x -= speed;
+          if (x < -scrollTextElement.offsetWidth) {
+            x = window.innerWidth;
+          }
+          gsap.set(scrollTextElement, { x });
+        });
+        function onScroll() {
+          const rect = newSectionElement.getBoundingClientRect();
+          const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+          if (!inView) return;
+          targetSpeed = maxSpeed;
+          isScrolling = true;
+          gsap.to(scrollTextElement, { opacity: maxOpacity, duration: 0.3, overwrite: 'auto', ease: 'power1.out' });
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            targetSpeed = minSpeed;
+            isScrolling = false;
+            gsap.to(scrollTextElement, { opacity: minOpacity, duration: 0.3, overwrite: 'auto', ease: 'power1.out' });
+          }, 80);
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+    });
+  </script>
+</body>
+</html>

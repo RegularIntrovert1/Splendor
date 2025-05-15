@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Initialize Appwrite client
+        const client = new Appwrite.Client()
+            .setEndpoint('https://fra.cloud.appwrite.io/v1')
+            .setProject('680364d1000477ec420b');
+
+        const databases = new Appwrite.Databases(client);
+        const DATABASE_ID = '6816dc7f00195dd533bf';
+        const COLLECTION_ID = '6816de0600052ed834e4';
+    </script>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+        @import url("https://fonts.googleapis.com/css?family=Lora:400,400i,700");
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        :root {
+            --hero-area-width: 100vw;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('Assets/Project_Create_BG.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: flex-end;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+
+
+
+
+            opacity: 0;
+            transition: opacity 0.5s;
+
+
+        }
+        body.fade-in {
+            opacity: 1;
+        }
+
+        .snow-container {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: calc(100% - 40%);
+            height: 100vh;
+
+
+
+
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            width: min(0.42vw, 6px);
+            height: min(0.42vw, 6px);
+            background: white;
+            border-radius: 50%;
+            opacity: 0.25;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-10vh) translateX(0);
+            }
+            to {
+                transform: translateY(110vh) translateX(20px);
+            }
+        }
+
+          .snowflake:nth-child(1) { left: 5%; animation-duration: 15s; animation-delay: -2s; }
+        .snowflake:nth-child(2) { left: 15%; animation-duration: 12s; animation-delay: -5s; }
+        .snowflake:nth-child(3) { left: 25%; animation-duration: 14s; animation-delay: -1s; }
+        .snowflake:nth-child(4) { left: 35%; animation-duration: 16s; animation-delay: -7s; }
+        .snowflake:nth-child(5) { left: 45%; animation-duration: 13s; animation-delay: -3s; }
+              .snowflake:nth-child(6) { left: 55%; animation-duration: 15s; animation-delay: -4s; }
+        .snowflake:nth-child(7) { left: 65%; animation-duration: 12s; animation-delay: -6s; }
+        .snowflake:nth-child(8) { left: 75%; animation-duration: 14s; animation-delay: -2s; }
+        .snowflake:nth-child(9) { left: 85%; animation-duration: 13s; animation-delay: -5s; }
+        .snowflake:nth-child(10) { left: 95%; animation-duration: 15s; animation-delay: -1s; }
+        .snowflake:nth-child(11) { left: 10%; animation-duration: 12s; animation-delay: -3s; }
+        .snowflake:nth-child(12) { left: 20%; animation-duration: 14s; animation-delay: -6s; }
+        .snowflake:nth-child(13) { left: 30%; animation-duration: 13s; animation-delay: -2s; }
+        .snowflake:nth-child(14) { left: 40%; animation-duration: 15s; animation-delay: -4s; }
+        .snowflake:nth-child(15) { left: 50%; animation-duration: 12s; animation-delay: -7s; }
+        .snowflake:nth-child(16) { left: 60%; animation-duration: 14s; animation-delay: -3s; }
+
+
+        .snowflake:nth-child(17) { left: 70%; animation-duration: 13s; animation-delay: -5s; }
+        .snowflake:nth-child(18) { left: 80%; animation-duration: 15s; animation-delay: -2s; }
+        .snowflake:nth-child(19) { left: 90%; animation-duration: 12s; animation-delay: -4s; }
+        .snowflake:nth-child(20) { left: 7%; animation-duration: 14s; animation-delay: -6s; }
+        .snowflake:nth-child(21) { left: 17%; animation-duration: 13s; animation-delay: -1s; }
+        .snowflake:nth-child(22) { left: 27%; animation-duration: 15s; animation-delay: -3s; }
+        .snowflake:nth-child(23) { left: 37%; animation-duration: 12s; animation-delay: -5s; }
+        .snowflake:nth-child(24) { left: 47%; animation-duration: 14s; animation-delay: -2s; }
+            .snowflake:nth-child(25) { left: 57%; animation-duration: 13s; animation-delay: -4s; }
+        .snowflake:nth-child(26) { left: 67%; animation-duration: 15s; animation-delay: -6s; }
+        .snowflake:nth-child(27) { left: 77%; animation-duration: 12s; animation-delay: -1s; }
+        .snowflake:nth-child(28) { left: 87%; animation-duration: 14s; animation-delay: -3s; }
+        .snowflake:nth-child(29) { left: 97%; animation-duration: 13s; animation-delay: -5s; }
+        .snowflake:nth-child(30) { left: 3%; animation-duration: 15s; animation-delay: -2s; }
+
+        .right-panel {
+            width: 40%;
+            min-width: 30vw;
+            height: 100vh;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.397) 20%,
+                rgba(255, 255, 255, 0.1) 40%,
+                white 70%
+            );
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            border-left: 1px solid rgba(61, 20, 20, 0.404);
+            box-shadow: -10px 0 30px rgba(255, 255, 255, 0.15);
+
+
+                position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 120px; /* Prevent overlap with logo/barcode */
+        }
+
+        .bottom-content {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            transform: translateY(-7px);
+        }
+
+        .barcode {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .barcode-lines {
+            width: 150px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .barcode-line {
+            height: 100%;
+            background-color: black;
+            flex-grow: 1;
+            transition: height 0.7s ease;
+            animation: barcodePulse .5s infinite;
+        }
+
+        .barcode-line:nth-last-child(2) {
+            background-color: #4A0404;
+        }
+
+        .barcode-line:last-child {
+            background-color: #BC2C0A;
+        }
+
+        .barcode-line:nth-child(2n) {
+            animation-delay: 0.2s;
+        }
+
+        .barcode-line:nth-child(3n) {
+            animation-delay: 0.4s;
+        }
+
+        .barcode-line:nth-child(4n) {
+            animation-delay: 0.6s;
+        }
+
+        .barcode-line:nth-child(5n) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes barcodePulse {
+            0% { height: 100%; }
+            50% { height: 85%; }
+            100% { height: 100%; }
+        }
+
+        .barcode-text {
+            color: black;
+            font-family: monospace;
+            font-size: 12px;
+            letter-spacing: 5px;
+        }
+
+        @media screen and (max-width: 1920px) and (max-height: 1080px) {
+            .logo {
+                width: min(150px, 8vw);
+            }
+
+            .barcode-lines {
+                width: min(150px, 8vw);
+                height: min(40px, 2.5vw);
+            }
+
+            .barcode-text {
+                font-size: min(12px, 0.7vw);
+            }
+
+            .snowflake {
+                width: 3px;
+                height: 3px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .bottom-content {
+                gap: 10px;
+            }
+        }
+
+        .quote-horizontal {
+            position: fixed;
+            left: 30%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: clamp(0.5vw, 1vw, 2vw);
+            background: rgba(20,20,20,0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-left: 0.4em solid #BC2C0A;
+            border-radius: 0.6em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2em 2.5em 2em 2em;
+            width: min(35vw, 500px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            font-family: 'Space Grotesk', 'Nunito', 'Montserrat', 'Avenir', 'Lora', sans-serif;
+            z-index: 2;
+        }
+
+        .quote-horizontal .quote-icon {
+            fill: #BC2C0A;
+            margin-bottom: 0.5em;
+            width: 2.5em;
+            height: 2.5em;
+            min-width: 1.5em;
+        }
+
+        .quote-horizontal .quote {
+            font-family: 'Space Grotesk', 'Nunito', 'Montserrat', 'Avenir', 'Lora', sans-serif;
+            font-weight: 400;
+            font-size: clamp(1rem, 1.1vw, 1.5rem);
+            color: #ffffff;
+            font-style: normal;
+            margin: 0;
+            line-height: 1.6;
+            word-break: normal;
+            overflow-wrap: break-word;
+            white-space: normal;
+            letter-spacing: 0;
+            cursor: pointer;
+        }
+
+        .quote-horizontal .quote span {
+            display: inline-block;
+            position: relative;
+            word-break: normal;
+            overflow-wrap: break-word;
+        }
+
+        .quote-horizontal .author {
+            font-family: 'Space Grotesk', 'Nunito', 'Montserrat', 'Avenir', 'Lora', sans-serif;
+            font-size: clamp(0.9rem, 1vw, 1.3rem);
+            font-weight: 500;
+            color: #fff;
+            opacity: 0.92;
+            margin-top: 1em;
+            white-space: nowrap;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .quote-horizontal {
+                width: min(45vw, 400px);
+                left: 25%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .quote-horizontal {
+                width: min(60vw, 350px);
+                left: 20%;
+                padding: 1.5em 2em 1.5em 1.5em;
+            }
+        }
+
+        .project-form {
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255,255,255,0.10);
+            box-shadow: none;
+            border-radius: 2.2em;
+            padding: 2.8em 2.2em 2.2em 2.2em;
+            max-width: 420px;
+            width: 90%;
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border: 1.5px solid rgba(255,255,255,0.13);
+            position: relative;
+            z-index: 3;
+            box-sizing: border-box;
+            box-shadow: inset 8px 8px 24px 0 rgba(44, 62, 80, 0.10), inset -8px -8px 24px 0 rgba(255,255,255,0.18);
+            min-height: 320px;
+        }
+        .form-title {
+            font-family: 'Space Grotesk', 'Nunito', 'Montserrat', 'Avenir', 'Lora', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 2.2em;
+            letter-spacing: 0.01em;
+            text-align: center;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .input-wrapper {
+            width: 100%;
+            margin-bottom: 2.2em;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .char-count {
+            font-size: 0.95em;
+            position: absolute;
+            top: -1.5em;
+            right: 0.2em;
+            text-align: right;
+            width: auto;
+            font-family: 'Nunito', 'Open Sans', sans-serif;
+            color: #888;
+            transition: color 0.2s;
+            background: none;
+            z-index: 2;
+        }
+        .char-count.over {
+            color: #c0392b;
+        }
+        .project-input {
+            width: 100%;
+            padding: 1.1em 1.4em;
+            font-size: 1.25rem;
+            border-radius: 1.5em;
+            border: none;
+            background: rgba(255,255,255,0.08);
+            box-shadow: inset 4px 4px 16px 0 rgba(44, 62, 80, 0.13), inset -4px -4px 16px 0 rgba(255,255,255,0.22);
+            color: #2d2d2d;
+            font-family: 'Nunito', 'Open Sans', sans-serif;
+            font-weight: 600;
+            outline: none;
+            transition: box-shadow 0.3s, background 0.3s;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            letter-spacing: 0.01em;
+        }
+        .project-input:focus, .project-input:hover {
+            box-shadow: 0 0 0 0 rgba(0,0,0,0), inset 8px 8px 28px 0 rgba(44, 62, 80, 0.22), inset -8px -8px 28px 0 rgba(255,255,255,0.32);
+            background: rgba(255,255,255,0.13);
+        }
+        .suggestion-prompt {
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 1.1em;
+            text-align: center;
+            font-family: 'Nunito', 'Open Sans', sans-serif;
+            opacity: 0.85;
+        }
+        .suggestions-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7em;
+            justify-content: center;
+            margin-bottom: 2.2em;
+        }
+        .suggestion {
+            padding: 0.7em 1.3em;
+            border-radius: 1.2em;
+            background: rgba(255,255,255,0.08);
+            box-shadow: inset 2px 2px 8px 0 rgba(44, 62, 80, 0.10), inset -2px -2px 8px 0 rgba(255,255,255,0.18);
+            color: #2d2d2d;
+            font-family: 'Nunito', 'Open Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: box-shadow 0.2s, background 0.2s, color 0.2s, border 0.2s, filter 0.2s;
+            user-select: none;
+            position: relative;
+            border: 2px solid transparent;
+        }
+        .suggestion:hover, .suggestion:focus {
+            background: rgba(255,255,255,0.16);
+            box-shadow: 0 0 0 2px rgba(182,224,254,0.18), inset 4px 4px 16px 0 rgba(44, 62, 80, 0.18), inset -4px -4px 16px 0 rgba(255,255,255,0.22);
+            color: #1a3a5d;
+            filter: brightness(1.08) saturate(1.2);
+        }
+        .suggestion.selected, .suggestion:active {
+            background: rgba(200,220,255,0.22);
+            box-shadow: inset 2px 2px 18px 0 rgba(44, 62, 80, 0.32), inset -2px -2px 18px 0 rgba(255,255,255,0.38), 0 0 0 3px #4A0404;
+            color: #4A0404;
+            filter: brightness(0.98) saturate(1.4);
+        }
+        .button-container {
+            display: flex;
+            gap: 1em;
+            margin-top: 1.2em;
+        }
+
+        .next-btn, .cancel-btn {
+            padding: 1em 2.5em;
+            border-radius: 1.5em;
+            border: none;
+            background: rgba(255,255,255,0.08);
+            box-shadow: inset 8px 8px 24px 0 rgba(44, 62, 80, 0.18), inset -8px -8px 24px 0 rgba(255,255,255,0.28);
+            color: #2d2d2d;
+            font-family: 'Nunito', 'Open Sans', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: box-shadow 0.2s, background 0.2s, color 0.2s, filter 0.2s;
+            outline: none;
+            letter-spacing: 0.01em;
+            position: relative;
+        }
+
+        .next-btn:hover, .next-btn:focus,
+        .cancel-btn:hover, .cancel-btn:focus {
+            background: rgba(255,255,255,0.16);
+            box-shadow: 0 0 0 2px #b6e0fe, inset 12px 12px 32px 0 rgba(44, 62, 80, 0.22), inset -12px -12px 32px 0 rgba(255,255,255,0.32);
+            color: #1a3a5d;
+            filter: brightness(1.08) saturate(1.2);
+        }
+
+        .next-btn:active, .next-btn.toggled {
+            background: rgba(200,220,255,0.22);
+            box-shadow: inset 2px 2px 18px 0 rgba(44, 62, 80, 0.32), inset -2px -2px 18px 0 rgba(255,255,255,0.38), 0 0 0 3px #4A0404;
+            color: #4A0404;
+            filter: brightness(0.98) saturate(1.4);
+        }
+
+        .cancel-btn:active, .cancel-btn.toggled {
+            background: rgba(200,220,255,0.22);
+            box-shadow: inset 2px 2px 18px 0 rgba(44, 62, 80, 0.32), inset -2px -2px 18px 0 rgba(255,255,255,0.38), 0 0 0 3px #1a3a5d;
+            color: #1a3a5d;
+            filter: brightness(0.98) saturate(1.4);
+        }
+
+        @media (max-width: 900px) {
+            .right-panel {
+                min-width: 0;
+            }
+            .project-form {
+                max-width: 98vw;
+                width: 98vw;
+                padding: 1.5em 0.7em 1.5em 0.7em;
+            }
+        }
+        @media (max-width: 600px) {
+            .project-form {
+                padding: 1.2em 0.3em 1.2em 0.3em;
+                max-width: 100vw;
+            }
+            .form-title {
+                font-size: 1.1rem;
+            }
+            .next-btn, .cancel-btn {
+                font-size: 1rem;
+                padding: 0.8em 1.5em;
+            }
+        }
+        .input-error {
+            color: #c0392b;
+            font-size: 0.98em;
+            margin-top: 0.5em;
+            text-align: center;
+            width: 100%;
+            font-family: 'Nunito', 'Open Sans', sans-serif;
+            display: none;
+        }
+        .input-error.active {
+                display: block;
+            animation: shake 0.25s linear 1;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Particle effect styles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            background: rgba(188, 44, 10, 0.8); /* Base crimson color */
+            border-radius: 50%;
+            width: 4px;
+            height: 4px;
+            z-index: 9999;
+            box-shadow: 0 0 4px rgba(188, 44, 10, 0.5);
+        }
+
+        @keyframes particleAnimation {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .visibility-options {
+            display: flex;
+            gap: 1.2em;
+            margin: 2em 0;
+            width: 100%;
+        }
+
+        .visibility-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8em;
+            padding: 1.5em;
+            border-radius: 1.5em;
+            border: none;
+            background: rgba(255,255,255,0.08);
+            box-shadow: inset 8px 8px 24px 0 rgba(44, 62, 80, 0.18), inset -8px -8px 24px 0 rgba(255,255,255,0.28);
+            color: #2d2d2d;
+            font-family: 'Nunito', 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visibility-btn:hover {
+            background: rgba(255,255,255,0.16);
+            box-shadow: 0 0 0 2px #b6e0fe, inset 12px 12px 32px 0 rgba(44, 62, 80, 0.22), inset -12px -12px 32px 0 rgba(255,255,255,0.32);
+            transform: translateY(-2px);
+        }
+
+        .visibility-btn.selected {
+            background: rgba(200,220,255,0.22);
+            box-shadow: inset 2px 2px 18px 0 rgba(44, 62, 80, 0.32), inset -2px -2px 18px 0 rgba(255,255,255,0.38), 0 0 0 3px #4A0404;
+            color: #4A0404;
+        }
+
+        .visibility-icon {
+            width: 2.5em;
+            height: 2.5em;
+            fill: currentColor;
+        }
+
+        .visibility-description {
+            font-size: 0.9em;
+            font-weight: 400;
+            color: #666;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+            .visibility-options {
+                flex-direction: column;
+                gap: 1em;
+            }
+            
+            .visibility-btn {
+                padding: 1.2em;
+            }
+        }
+
+        #thirdForm {
+            max-width: 600px;
+        }
+
+        /* Glassmorphism horizontal scrollbar for tag list */
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5em;
+            max-width: 90%;
+            max-height: 6.2em; /* ~3 rows */
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-items: flex-start;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.35) rgba(255,255,255,0.08);
+        }
+        .tag-list::-webkit-scrollbar {
+            width: 8px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+        }
+        .tag-list::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.35);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.10), 0 -2px 8px rgba(255,255,255,0.18);
+            backdrop-filter: blur(6px) saturate(180%);
+        }
+        .tag-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.55);
+        }
+
+        .tag-pill {
+            display: inline-block;
+            transition: filter 0.15s, box-shadow 0.2s, border 0.2s, font-size 0.2s, padding 0.2s, background 0.2s;
+            cursor: pointer;
+            margin-bottom: 2px;
+            font-size: 1em;
+            padding: 0.4em 1em;
+            border-radius: 1em;
+            font-weight: 600;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            white-space: nowrap;
+            border: 2px solid transparent;
+            position: relative;
+            z-index: 1;
+            background: var(--tag-bg, #888);
+            color: #fff;
+        }
+
+        .tag-pill:hover {
+            filter: brightness(1.15) saturate(1.1);
+        }
+
+        .tag-pill.selected {
+            filter: brightness(1.28) saturate(1.08);
+            border: 2px solid #fff8;
+            box-shadow: 0 0 8px 2px #fff4, 0 0 0 4px rgba(176,44,10,0.10);
+        }
+
+        /* Remove animated outline for selected tags */
+        .tag-pill.selected {
+            animation: none;
+            border-image: none;
+        }
+
+        /* Shrink tag size if many tags */
+        .tag-list.shrink .tag-pill {
+            font-size: 0.85em;
+            padding: 0.25em 0.7em;
+        }
+
+        .project-input#projectDescription {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.35) rgba(255,255,255,0.08);
+        }
+        .project-input#projectDescription::-webkit-scrollbar {
+            width: 10px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+        }
+        .project-input#projectDescription::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.35);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.10), 0 -2px 8px rgba(255,255,255,0.18);
+            backdrop-filter: blur(6px) saturate(180%);
+        }
+        .project-input#projectDescription::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.55);
+        }
+        #selectedTagsSection {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5em;
+            max-width: 90%;
+            max-height: 6.2em; /* ~3 rows */
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-items: flex-start;
+            justify-content: center;
+            margin-bottom: 1.2em;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.35) rgba(255,255,255,0.08);
+        }
+        #selectedTagsSection::-webkit-scrollbar {
+            width: 8px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+        }
+        #selectedTagsSection::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.35);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.10), 0 -2px 8px rgba(255,255,255,0.18);
+            backdrop-filter: blur(6px) saturate(180%);
+        }
+        #selectedTagsSection::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.55);
+        }
+
+        .glass-color-picker {
+            border-radius: 1.5em;
+            background: rgba(255,255,255,0.18);
+            box-shadow: 0 2px 12px rgba(44,62,80,0.10), 0 -2px 8px rgba(255,255,255,0.18);
+            backdrop-filter: blur(8px) saturate(180%);
+            -webkit-backdrop-filter: blur(8px) saturate(180%);
+            border: 1.5px solid rgba(255,255,255,0.18);
+            outline: none;
+            padding: 0.2em 0.8em;
+            font-size: 1em;
+            font-family: inherit;
+            color: #2d2d2d;
+            transition: box-shadow 0.2s, background 0.2s;
+        }
+        .glass-color-picker:focus, .glass-color-picker:hover {
+            background: rgba(255,255,255,0.28);
+            box-shadow: 0 0 0 2px #b6e0fe, 0 2px 16px rgba(44,62,80,0.18);
+        }
+        .color-picker-wrapper {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .custom-color-btn {
+            width: 2.2em;
+            height: 2.2em;
+            border-radius: 50%;
+            border: none;
+            background: none;
+            outline: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0;
+            box-shadow: none;
+            transition: none;
+        }
+        .custom-color-swatch {
+            width: 2.2em;
+            height: 2.2em;
+            border-radius: 50%;
+            background: var(--swatch-color, #2ed573);
+            border: none;
+            box-shadow: none;
+            pointer-events: none;
+            display: block;
+        }
+        #newTagColor {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.2em;
+            height: 2.2em;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+        /* Card badge for unlisted */
+        .card-visibility.unlisted {
+            background: rgb(241, 196, 15);
+            color: white;
+            opacity: 0.8;
+        }
+
+        #tagColorSelect {
+            background: rgba(255,255,255,0.13);
+            color: #2d2d2d;
+            border: none;
+            border-radius: 1em;
+            padding: 0.5em;
+            font-size: 1em;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #tagColorSelect:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        #tagColorSelect option {
+            background: white;
+            color: #2d2d2d;
+        }
+    </style>
+</head>
+<body>
+    <div class="quote-horizontal">
+        <svg viewBox="0 0 512 512" width="32" title="quote-left" class="quote-icon">
+            <path d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z" />
+        </svg>
+        <span class="quote">Splendor has streamlined how I share ui/ux mockups with the rest of my team, I would recommend it to anyone looking for a polished, elegant, and secure solution to develop frontend projects.</span>
+        <span class="author">— Sai T. Prakhya</span>
+    </div>
+    <div class="snow-container">
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+    </div>
+    <div class="right-panel">
+        <form class="project-form" id="projectNameForm" autocomplete="off">
+            <div class="form-title">What should we call your project?</div>
+            <div class="input-wrapper">
+                <div class="char-count" id="charCount"></div>
+                <input type="text" class="project-input" placeholder="Project Name" />
+            </div>
+            <div class="input-error" id="inputError">Project name must be at least 3 characters and 64 characters or fewer.</div>
+            <div class="suggestion-prompt">Not feeling creative at the moment? You can always rename your project later!</div>
+            <div class="suggestions-row">
+                <!-- Suggestions will be filled by JS -->
+            </div>
+            <div class="button-container">
+                <button type="button" class="cancel-btn">Cancel</button>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </form>
+        <form class="project-form" id="emptyForm" style="display: none; opacity: 0;" autocomplete="off">
+            <div class="form-title">How should we describe your project to others?</div>
+            <div class="input-wrapper">
+                <div class="char-count" id="descCharCount"></div>
+                <textarea class="project-input" id="projectDescription" placeholder="Project Description" rows="3" style="resize: none; min-height: 80px;"></textarea>
+            </div>
+            <div class="input-error" id="descInputError">Project description must be between 1 and 99 characters.</div>
+            <div class="suggestion-prompt">A good description helps others understand your project's purpose!</div>
+            <div class="button-container">
+                <button type="button" class="cancel-btn">Back</button>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </form>
+        <form class="project-form" id="thirdForm" style="display: none; opacity: 0;" autocomplete="off">
+            <div class="form-title">Is your idea ready for the world to see?</div>
+            <div class="visibility-options">
+                <button type="button" class="visibility-btn" data-visibility="public">
+                    <svg viewBox="0 0 24 24" class="visibility-icon">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <span>Public</span>
+                    <div class="visibility-description">Anyone can view your project</div>
+                </button>
+                <button type="button" class="visibility-btn" data-visibility="unlisted">
+                    <svg viewBox="0 0 24 24" class="visibility-icon">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/>
+                    </svg>
+                    <span>Unlisted</span>
+                    <div class="visibility-description">Only people with the link can view</div>
+                </button>
+                <button type="button" class="visibility-btn" data-visibility="private">
+                    <svg viewBox="0 0 24 24" class="visibility-icon">
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                    </svg>
+                    <span>Private</span>
+                    <div class="visibility-description">Only you can view your project</div>
+                </button>
+            </div>
+            <div class="suggestion-prompt">You can always change this in settings.</div>
+            <div class="button-container">
+                <button type="button" class="cancel-btn">Back</button>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </form>
+        <form class="project-form" id="fourthForm" style="display: none; opacity: 0;" autocomplete="off">
+            <div class="form-title">Add tags to your project</div>
+            <div class="tag-list-container" style="width:100%; display:flex; justify-content:center; margin-bottom:1.5em;">
+                <div class="tag-list" id="tagList" style="display:flex; gap:0.5em; flex-wrap:wrap; overflow-y:auto; max-width:90%;"></div>
+            </div>
+            <div style="width:100%; display:flex; justify-content:center; align-items:center; gap:0.5em; margin-bottom:1em;">
+                <input id="newTagInput" type="text" maxlength="20" placeholder="Create new tag..." style="padding:0.5em 1em; border-radius:1em; border:none; background:rgba(255,255,255,0.13); font-size:1em; font-family:inherit; outline:none; width: 10em;" />
+                <select id="tagColorSelect" class="glass-color-picker">
+                    <option value="1">Green</option>
+                    <option value="2">Blue</option>
+                    <option value="3">Red</option>
+                    <option value="4">Yellow</option>
+                    <option value="5">Purple</option>
+                    <option value="6">Orange</option>
+                    <option value="7">Turquoise</option>
+                    <option value="8">Light Gray</option>
+                    <option value="9">Dark Gray</option>
+                    <option value="10">Gold</option>
+                </select>
+                <button type="button" id="createTagBtn" style="padding:0.5em 1.2em; border-radius:1em; border:none; background:rgba(255,255,255,0.18); font-weight:600; font-size:1em; cursor:pointer;">Add</button>
+            </div>
+            <div id="selectedTagsSection"></div>
+            <div class="button-container">
+                <button type="button" class="cancel-btn">Back</button>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </form>
+        <form class="project-form" id="confirmationForm" style="display: none; opacity: 0;" autocomplete="off">
+            <div class="form-title">Confirm your project details</div>
+            <div id="confirmationSummary" style="width:100%; margin-bottom:2em;"></div>
+            <div class="button-container">
+                <button type="button" class="cancel-btn">Cancel</button>
+                <button type="button" class="next-btn">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="bottom-content">
+        <img src="Assets/Logo3.png" alt="Splendor Logo" class="logo">
+        <div class="barcode">
+            <div class="barcode-lines">
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+                <div class="barcode-line"></div>
+            </div>
+            <div class="barcode-text">SPLENDOR</div>
+        </div>
+    </div>
+</body>
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    // Random name generation
+    function getRandomElement(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+    function generateProjectNames(count) {
+        const adjectives = [
+            'mango', 'lunar', 'crystal', 'velvet', 'neon', 'azure', 'phantom', 'cosmic', 'silent', 'electric', 'midnight', 'hollow', 'frosted', 'gilded', 'opal', 'sable', 'serene', 'vapor', 'wisp', 'arcane', 'prism', 'ember', 'misty', 'gossamer', 'echo', 'mythic', 'sable', 'aurora', 'glimmer', 'solstice', 'dusk', 'dawn', 'haze', 'plasma', 'quartz', 'ripple', 'sable', 'zenith', 'nova', 'mirage', 'sable', 'sable', 'sable', 'sable', 'sable', 'sable', 'sable', 'sable', 'sable', 'sable'
+        ];
+        const nouns = [
+            'tree', 'echo', 'owl', 'cosmos', 'fern', 'myth', 'dream', 'mist', 'grove', 'spire', 'veil', 'pulse', 'rift', 'shade', 'goon', 'drift', 'flare', 'spire', 'veil', 'pulse', 'rift', 'shade', 'glyph', 'drift', 'flare', 'spire', 'veil', 'pulse', 'rift', 'shade', 'glyph', 'drift', 'flare', 'spire', 'veil', 'pulse', 'rift', 'shade', 'glyph', 'drift', 'flare', 'spire', 'veil', 'pulse', 'rift', 'shade', 'glyph', 'drift', 'flare'
+        ];
+        const quirks = [
+            'farce', 'dream', 'myth', 'mist', 'whisper', 'pulse', 'flux', 'haze', 'mirage', 'riddle', 'fable', 'spark', 'shard', 'veil', 'echo', 'dawn', 'dusk', 'zenith', 'nova', 'solstice', 'ember', 'wisp', 'arc', 'gale', 'frost', 'ember', 'shade', 'glyph', 'drift', 'flare', 'spire', 'veil', 'pulse', 'rift', 'shade', 'glyph', 'drift', 'flare', 'spire', 'veil', 'pulse', 'rift', 'shade', 'glyph', 'drift', 'flare', 'spire', 'veil', 'pulse'
+        ];
+        const results = new Set();
+        while (results.size < count) {
+            const name = `${getRandomElement(adjectives)}-${getRandomElement(nouns)}-${getRandomElement(quirks)}`;
+            results.add(name);
+        }
+        return Array.from(results);
+    }
+
+    const suggestionsRow = document.querySelector('.suggestions-row');
+    if (suggestionsRow) {
+        suggestionsRow.innerHTML = '';
+        generateProjectNames(5).forEach(name => {
+            const div = document.createElement('div');
+            div.className = 'suggestion';
+            div.textContent = name;
+            suggestionsRow.appendChild(div);
+        });
+    }
+
+    const input = document.querySelector('.project-input');
+    let lastTypedValue = '';
+    const charCount = document.getElementById('charCount');
+    const inputError = document.getElementById('inputError');
+    const nextBtn = document.querySelector('.next-btn');
+    let hasInteractedWithName = false;
+
+
+    function attachSuggestionListeners() {
+        document.querySelectorAll('.suggestion').forEach(suggestion => {
+            suggestion.addEventListener('click', function() {
+                const alreadySelected = this.classList.contains('selected');
+
+                document.querySelectorAll('.suggestion').forEach(s => s.classList.remove('selected'));
+                if (alreadySelected) {
+
+                    input.value = lastTypedValue;
+                    hasInteractedWithName = true;
+                    updateCharCount();
+                } else {
+
+                    const isCurrentSuggestion = Array.from(document.querySelectorAll('.suggestion')).some(s => s.textContent === input.value);
+                    if (!isCurrentSuggestion) {
+                        lastTypedValue = input.value;
+                    }
+              
+
+
+                    this.classList.add('selected');
+                   
+
+
+                    input.value = this.textContent;
+
+
+
+
+
+
+
+
+
+                    hasInteractedWithName = true;
+                    updateCharCount();
+                }
+            });
+        });
+    }
+    attachSuggestionListeners();
+
+    function updateCharCount() {
+        const len = input.value.length;
+
+
+
+
+
+
+
+        charCount.textContent = len + ' / 64';
+        if (len > 64) {
+            charCount.classList.add('over');
+            inputError.classList.add('active');
+            inputError.textContent = 'Project name must be at least 3 characters and 64 characters or fewer.';
+        } else if (hasInteractedWithName && len < 3) {
+            charCount.classList.add('over');
+            inputError.classList.add('active');
+            inputError.textContent = 'Project name must be at least 3 characters.';
+        } else {
+            charCount.classList.remove('over');
+            inputError.classList.remove('active');
+        }
+    }
+
+    input.addEventListener('input', function() {
+        hasInteractedWithName = true;
+
+        let sanitized = input.value
+            .replace(/<.*?>/g, '')
+            .replace(/(['";\\])/g, '')
+            .replace(/(--|\/\*|\*\/|#|\b(select|insert|update|delete|drop|union|alter|create|replace|truncate|exec|script)\b)/gi, '')
+            .replace(/\s{2,}/g, ' ');
+        if (input.value !== sanitized) input.value = sanitized;
+        // Only updates lastTypedValue if the change was from typing, not from suggestion click
+        const selected = suggestionsRow.querySelector('.suggestion.selected');
+        if (selected && input.value !== selected.textContent) {
+            selected.classList.remove('selected');
+        }
+
+        const isSuggestion = Array.from(document.querySelectorAll('.suggestion')).some(s => s.textContent === input.value);
+        if (!isSuggestion) {
+            lastTypedValue = input.value;
+        }
+        updateCharCount();
+    });
+
+
+    document.querySelector('#projectNameForm .next-btn').addEventListener('click', function(e) {
+        const nameValue = input.value.trim();
+        if (nameValue === '' || nameValue === 'Project Name' || 
+            nameValue.length > 64 || (hasInteractedWithName && nameValue.length < 3)) {
+            inputError.classList.add('active');
+            charCount.classList.add('over');
+            input.classList.add('shake');
+            setTimeout(() => input.classList.remove('shake'), 300);
+            input.scrollIntoView({behavior: 'smooth', block: 'center'});
+            return;
+        }
+        
+        formData.projectName = nameValue;
+        transitionForms(document.getElementById('projectNameForm'), document.getElementById('emptyForm'), true);
+    });
+
+    // Cancel/Back button handlers
+    document.querySelectorAll('.cancel-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const currentForm = this.closest('.project-form');
+            
+            if (currentForm.id === 'projectNameForm') {
+               
+                window.location.href = 'index.html';
+            } else if (currentForm.id === 'emptyForm') {
+       
+                transitionForms(currentForm, document.getElementById('projectNameForm'), false);
+            } else if (currentForm.id === 'thirdForm') {
+                
+                transitionForms(currentForm, document.getElementById('emptyForm'), false);
+            }
+        });
+    });
+
+
+
+    const projectDescription = document.getElementById('projectDescription');
+    const descCharCount = document.getElementById('descCharCount');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const descInputError = document.getElementById('descInputError');
+    
+    function getDateInWords() {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+
+
+                       'July', 'August', 'September', 'October', 'November', 'December'];
+        const date = new Date();
+        return `${months[date.getMonth()]} ${date.getFullYear()}`;
+    }
+    
+
+    function updateDescCharCount() {
+        const len = projectDescription.value.length;
+        descCharCount.textContent = len + ' / 99';
+        if (len > 99 || len === 0) {
+            descCharCount.classList.add('over');
+            descInputError.classList.add('active');
+        } else {
+            descCharCount.classList.remove('over');
+
+
+
+
+
+
+
+
+
+
+            descInputError.classList.remove('active');
+        }
+    }
+
+
+    document.querySelectorAll('.next-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const currentForm = this.closest('.project-form');
+            if (currentForm.id === 'projectNameForm') {
+            
+
+                projectDescription.value = `This is my ${getDateInWords()} project!`;
+                updateDescCharCount();
+            }
+        });
+    });
+
+    projectDescription.addEventListener('click', function() {
+        this.select();
+    });
+
+    projectDescription.addEventListener('input', function() {
+
+        
+        let sanitized = projectDescription.value
+            .replace(/<.*?>/g, '')
+            .replace(/(['";\\])/g, '')
+            .replace(/(--|\/\*|\*\/|#|\b(select|insert|update|delete|drop|union|alter|create|replace|truncate|exec|script)\b)/gi, '')
+            .replace(/\s{2,}/g, ' ');
+        if (projectDescription.value !== sanitized) projectDescription.value = sanitized;
+        updateDescCharCount();
+    });
+
+
+    document.querySelector('#emptyForm .next-btn').addEventListener('click', function(e) {
+        const descValue = projectDescription.value.trim();
+        if (descValue === '' || descValue === 'Project Description' || 
+            descValue.length > 99 || descValue.length === 0) {
+            descInputError.classList.add('active');
+            descCharCount.classList.add('over');
+            projectDescription.classList.add('shake');
+            setTimeout(() => projectDescription.classList.remove('shake'), 300);
+            projectDescription.scrollIntoView({behavior: 'smooth', block: 'center'});
+            return;
+        }
+        
+        formData.projectDescription = descValue;
+        transitionForms(document.getElementById('emptyForm'), document.getElementById('thirdForm'), true);
+    });
+
+
+    document.querySelectorAll('.project-form').forEach(form => {
+        form.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                
+
+
+
+                if (e.target.id === 'projectDescription') {
+                    return;
+                }
+                
+                this.querySelector('.next-btn').click();
+            }
+        });
+    });
+
+   
+    projectDescription.addEventListener('click', function() {
+        this.select();
+    });
+
+ 
+    projectDescription.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    });
+
+    projectDescription.addEventListener('input', function() {
+   
+        let sanitized = projectDescription.value
+            .replace(/<.*?>/g, '')
+            .replace(/(['";\\])/g, '')
+            .replace(/(--|\/\*|\*\/|#|\b(select|insert|update|delete|drop|union|alter|create|replace|truncate|exec|script)\b)/gi, '')
+            .replace(/\s{2,}/g, ' ');
+        if (projectDescription.value !== sanitized) projectDescription.value = sanitized;
+        updateDescCharCount();
+    });
+
+    function createParticles(form, isForward = true) {
+        const rect = form.getBoundingClientRect();
+        const particles = [];
+        const particleCount = isForward ? 200 : 67; 
+        
+        // Color variations based on direction of pipline movement (i sthe user moving fwards in tyhe form or ,oving backwards)
+        const colors = isForward ? [
+            'rgba(188, 44, 10, 0.4)', 
+            'rgba(220, 20, 60, 0.4)', 
+            'rgba(178, 34, 34, 0.4)', 
+            'rgba(165, 42, 42, 0.4)', 
+            'rgba(139, 0, 0, 0.4)',  
+            'rgba(128, 0, 0, 0.4)',  
+            'rgba(255, 0, 0, 0.4)',  
+            'rgba(205, 92, 92, 0.4)', 
+            'rgba(233, 116, 81, 0.4)',
+            'rgba(255, 69, 0, 0.4)'  
+        ] : [
+            'rgba(147, 112, 219, 0.2)',
+            'rgba(138, 43, 226, 0.2)',
+            'rgba(123, 104, 238, 0.2)',
+            'rgba(106, 90, 205, 0.2)',
+            'rgba(72, 61, 139, 0.2)',
+            'rgba(65, 105, 225, 0.2)',
+            'rgba(30, 144, 255, 0.2)',
+            'rgba(0, 191, 255, 0.2)',
+            'rgba(0, 150, 199, 0.2)',
+            'rgba(0, 119, 182, 0.2)',
+            'rgba(100, 149, 237, 0.2)',
+            'rgba(135, 206, 235, 0.2)',
+            'rgba(176, 196, 222, 0.2)',
+            'rgba(173, 216, 230, 0.2)',
+            'rgba(144, 224, 239, 0.2)'
+        ];
+        
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const x = rect.left + Math.random() * rect.width;
+            const y = rect.top + Math.random() * rect.height;
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 100 + Math.random() * 200;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+            
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.setProperty('--tx', tx + 'px');
+            particle.style.setProperty('--ty', ty + 'px');
+            
+            const size = 3 + Math.random() * 6;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.background = color;
+
+            const glowIntensity = isForward ? 0.5 : 0.8;
+            particle.style.boxShadow = `0 0 ${size * 1.5}px ${color.replace('0.2', glowIntensity.toString())}`;
+            
+            particle.style.animation = `particleAnimation ${0.8 + Math.random() * 0.7}s ease-out forwards`;
+            
+            document.body.appendChild(particle);
+            particles.push(particle);
+        }
+        
+        return particles;
+    }
+
+    function transitionForms(fromForm, toForm, isForward = true) {
+        const particles = createParticles(fromForm, isForward);
+        
+        fromForm.style.transition = 'opacity 0.5s ease-out';
+        fromForm.style.opacity = '0';
+        
+        setTimeout(() => {
+            particles.forEach(particle => particle.remove());
+            fromForm.style.display = 'none';
+            
+            toForm.style.display = 'flex';
+            toForm.style.opacity = '0';
+            
+            requestAnimationFrame(() => {
+                toForm.style.transition = 'opacity 0.5s ease-in';
+                toForm.style.opacity = '1';
+            });
+        }, 1000);
+    }
+
+
+    let formData = {
+        projectName: '',
+        projectDescription: '',
+        visibility: ''
+    };
+
+
+    input.addEventListener('input', function() {
+        formData.projectName = this.value;
+    });
+
+    projectDescription.addEventListener('input', function() {
+        formData.projectDescription = this.value;
+    });
+
+
+    document.querySelectorAll('.visibility-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.visibility-btn').forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+            formData.visibility = this.dataset.visibility;
+        });
+    });
+
+
+    document.querySelector('#thirdForm .next-btn').addEventListener('click', function(e) {
+        const selectedVisibility = document.querySelector('.visibility-btn.selected');
+        if (!selectedVisibility) {
+            document.querySelectorAll('.visibility-btn').forEach(btn => {
+                btn.classList.add('shake');
+                setTimeout(() => btn.classList.remove('shake'), 300);
+            });
+            return;
+        }
+        
+        formData.visibility = selectedVisibility.dataset.visibility;
+
+        transitionForms(document.getElementById('thirdForm'), document.getElementById('fourthForm'), true);
+    });
+
+
+    document.querySelector('#fourthForm .cancel-btn').addEventListener('click', function(e) {
+        transitionForms(document.getElementById('fourthForm'), document.getElementById('thirdForm'), false);
+    });
+
+
+    const COLOR_PALETTE = {
+        1: 'rgb(46, 213, 115)',    // Green
+        2: 'rgb(52, 152, 219)',       // Blue
+        3: 'rgb(231, 76, 60)',       // Red
+        4: 'rgb(241, 196, 15)',    // Yellow
+        5: 'rgb(155, 89, 182)',     // Purple
+        6: 'rgb(230, 126, 34)',    // range
+        7: 'rgb(26, 188, 156)',     // Turquoise
+        8: 'rgb(236, 240, 241)', // light Gray
+        9: 'rgb(149, 165, 166)',  // Dark Gray
+        10: 'rgb(243, 156, 18)'   // Gld
+    };
+    const DATABASE_ID = '6816dc7f00195dd533bf';
+    const COLLECTION_ID = '6816de0600052ed834e4';
+    const databases = new Appwrite.Databases(window.client);
+
+    let selectedTags = [];
+    function renderSelectedTags() {
+        const section = document.getElementById('selectedTagsSection');
+        section.innerHTML = '';
+        if (selectedTags.length === 0) {
+            section.innerHTML = '<span style="color:#888; font-size:0.98em;">No tags selected</span>';
+            section.classList.remove('shrink');
+            return;
+        }
+        if (selectedTags.length > 8) section.classList.add('shrink');
+        else section.classList.remove('shrink');
+        
+        selectedTags.forEach(tag => {
+            const tagDiv = document.createElement('div');
+            tagDiv.textContent = tag.text;
+            tagDiv.className = 'tag-pill';
+
+            const colorChoice = tag.colorChoice || '1';
+            const color = COLOR_PALETTE[parseInt(colorChoice)];
+            const bgColor = color.replace('rgb', 'rgba').replace(')', ', 0.92)');
+            tagDiv.style.setProperty('--tag-bg', bgColor);
+            
+
+            if (newTags.some(t => t.text === tag.text)) {
+                tagDiv.title = 'Click to delete this custom tag';
+                tagDiv.style.cursor = 'pointer';
+                tagDiv.addEventListener('click', function() {
+                    newTags = newTags.filter(t => t.text !== tag.text);
+                    const idx = selectedTags.findIndex(t => t.text === tag.text);
+                    if (idx !== -1) selectedTags.splice(idx, 1);
+                    tagDiv.remove();
+                    renderSelectedTags();
+                    // Also remove from tag list visually
+                    const tagList = document.getElementById('tagList');
+                    Array.from(tagList.children).forEach(child => {
+                        if (child.textContent === tag.text) child.remove();
+                    });
+                });
+            }
+            section.appendChild(tagDiv);
+        });
+    }
+
+
+    function showTagWarning(msg) {
+        let warn = document.getElementById('tagLimitWarn');
+        if (!warn) {
+            warn = document.createElement('div');
+            warn.id = 'tagLimitWarn';
+            warn.style.color = '#c0392b';
+            warn.style.textAlign = 'center';
+            warn.style.fontSize = '0.98em';
+            warn.style.margin = '0.5em 0 0.2em 0';
+            document.getElementById('fourthForm').insertBefore(warn, document.getElementById('selectedTagsSection'));
+        }
+        warn.textContent = msg;
+        setTimeout(() => { warn.textContent = ''; }, 2000);
+    }
+
+    async function fetchAndRenderUserTags() {
+        const tagList = document.getElementById('tagList');
+        if (!tagList) return;
+        tagList.innerHTML = '<span style="color:#888;">Loading tags...</span>';
+        try {
+            const user = await window.account.get();
+            const userCards = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
+                Appwrite.Query.equal('userId', user.$id)
+            ]);
+            const uniqueTags = new Map();
+            userCards.documents.forEach(card => {
+                const tagTexts = card.tag_Text ? card.tag_Text.split(',').filter(t => t.trim()) : [];
+                const tagColors = card.tag_Colors ? card.tag_Colors.split(',').filter(c => c.trim()) : [];
+                tagTexts.forEach((text, index) => {
+                    if (!uniqueTags.has(text)) {
+                     
+                        let colorChoice = tagColors[index] || '1';
+                  
+                        colorChoice = parseInt(colorChoice);
+                        if (isNaN(colorChoice) || colorChoice < 1 || colorChoice > 10) {
+                            colorChoice = 1;
+                        }
+                        uniqueTags.set(text, colorChoice.toString());
+                    }
+                });
+            });
+            tagList.innerHTML = '';
+            if (uniqueTags.size === 0) {
+                tagList.innerHTML = '<span style="color:#888;">No tags found</span>';
+            } else {
+                const tagCount = uniqueTags.size;
+                if (tagCount > 12) tagList.classList.add('shrink');
+                else tagList.classList.remove('shrink');
+                uniqueTags.forEach((colorChoice, tagText) => {
+              
+
+                    const colorNum = parseInt(colorChoice) || 1;
+                    const color = COLOR_PALETTE[colorNum] || COLOR_PALETTE[1];
+                    const bgColor = color.replace('rgb', 'rgba').replace(')', ', 0.92)');
+                    const tagDiv = document.createElement('div');
+                    tagDiv.textContent = tagText;
+                    tagDiv.className = 'tag-pill';
+                    tagDiv.style.setProperty('--tag-bg', bgColor);
+                    // Highlight if selected
+                    if (selectedTags.some(t => t.text === tagText)) {
+
+
+
+
+
+
+
+
+
+
+
+
+                        tagDiv.classList.add('selected');
+                    }
+                    tagDiv.addEventListener('click', function() {
+                        const idx = selectedTags.findIndex(t => t.text === tagText);
+                        if (idx === -1) {
+                            if (selectedTags.length >= 10) {
+                                showTagWarning('You can select up to 10 tags.');
+
+
+
+
+
+
+
+
+                                return;
+                            }
+                            selectedTags.push({ text: tagText, colorChoice: colorChoice });
+                            tagDiv.classList.add('selected');
+                        } else {
+                            if (selectedTags.length <= 1) {
+                                showTagWarning('You must select at least 1 tag.');
+                                return;
+                            }
+                            selectedTags.splice(idx, 1);
+                            tagDiv.classList.remove('selected');
+                        }
+                        renderSelectedTags();
+                    });
+                    tagList.appendChild(tagDiv);
+                });
+            }
+            renderSelectedTags();
+        } catch (error) {
+            console.error('Error fetching tags:', error);
+            tagList.innerHTML = '<span style="color:#c0392b;">Error loading tags. Please try refreshing the page.</span>';
+        }
+    }
+
+
+    const tagFormObserver = new MutationObserver(() => {
+        const tagForm = document.getElementById('fourthForm');
+        if (tagForm && tagForm.style.display !== 'none') {
+            fetchAndRenderUserTags();
+        }
+    });
+    tagFormObserver.observe(document.body, { childList: false, subtree: true, attributes: true, attributeFilter: ['style'] });
+
+
+    let newTags = [];
+    document.getElementById('createTagBtn').addEventListener('click', function() {
+        const input = document.getElementById('newTagInput');
+        const colorSelect = document.getElementById('tagColorSelect');
+        const value = input.value.trim();
+        const colorValue = colorSelect.value;
+        
+        if (!value) return;
+        if (value.length > 20) {
+            showTagWarning('Tag must be 20 characters or fewer.');
+            return;
+        }
+        
+
+        if (selectedTags.some(t => t.text.toLowerCase() === value.toLowerCase())) {
+            showTagWarning('Tag already selected.');
+            return;
+        }
+
+
+        newTags.push({ text: value, colorChoice: colorValue });
+        selectedTags.push({ text: value, colorChoice: colorValue });
+        input.value = '';
+
+
+        const tagList = document.getElementById('tagList');
+        const tagDiv = document.createElement('div');
+        tagDiv.textContent = value;
+        tagDiv.className = 'tag-pill selected';
+        const color = COLOR_PALETTE[parseInt(colorValue)];
+        const bgColor = color.replace('rgb', 'rgba').replace(')', ', 0.92)');
+        tagDiv.style.setProperty('--tag-bg', bgColor);
+        
+        tagDiv.addEventListener('click', function() {
+            const idx = selectedTags.findIndex(t => t.text === value);
+            if (idx !== -1) {
+                if (selectedTags.length <= 1) {
+                    showTagWarning('You must select at least 1 tag.');
+                    return;
+                }
+                selectedTags.splice(idx, 1);
+                newTags = newTags.filter(t => t.text !== value);
+                tagDiv.classList.remove('selected');
+            } else {
+                if (selectedTags.length >= 10) {
+                    showTagWarning('You can select up to 10 tags.');
+                    return;
+                }
+                selectedTags.push({ text: value, colorChoice: colorValue });
+                tagDiv.classList.add('selected');
+            }
+            renderSelectedTags();
+        });
+        
+        tagList.appendChild(tagDiv);
+        renderSelectedTags();
+    });
+
+
+    const quotes = [
+        {
+            text: "Splendor has streamlined how I share ui/ux mockups with the rest of my team, I would recommend it to anyone looking for a polished, elegant, and secure solution to develop frontend projects.",
+            author: "Sai T. Prakhya"
+        },
+        {
+            text: "Using Splendor has completely changed the way I share and collaborate on UI/UX mockups. It's sleek, reliable, and perfect for any frontend workflow.",
+            author: "Ken Nguyen"
+        },
+        {
+            text: "Splendor makes frontend collaboration effortless. It's a polished, secure, and elegant platform for sharing and refining interface designs with your team.",
+            author: "Aarav Bhatt"
+        },
+        {
+            text: "Splendor is like a smarter, sleeker CodePen—great for quickly sharing interactive mockups and frontend concepts without the usual friction.",
+            author: "Dhruv Patil"
+        },
+        {
+            text: "With Splendor, our design and development teams stay in sync. It's a refined tool that simplifies the way we work on UI ideas together.",
+            author: "Austin Zhong"
+        }
+    ];
+    let quoteIndex = 0;
+    var quote = document.querySelector('.quote-horizontal .quote');
+    var author = document.querySelector('.quote-horizontal .author');
+    var quoteContainer = document.querySelector('.quote-horizontal');
+    function wrapQuoteText(text) {
+        return text.replace(/\S/g, '<span>$&</span>');
+    }
+    function setQuote(idx) {
+        quote.innerHTML = wrapQuoteText(quotes[idx].text);
+        author.innerHTML = '&mdash; ' + quotes[idx].author;
+    }
+    if (quote && author && quoteContainer && !quote.classList.contains('animated-quote-ready')) {
+        quote.classList.add('animated-quote-ready');
+        setQuote(quoteIndex);
+        var getSpans = () => quote.querySelectorAll('span');
+        let currentAnimation = null;
+        let isHovering = false;
+        let pendingQuoteChange = false;
+        function scrambleLetters() {
+            if (currentAnimation) currentAnimation.pause();
+            let spans = getSpans();
+            currentAnimation = anime({
+                targets: spans,
+                translateX: function() { return anime.random(-50, 50); },
+                translateY: function() { return anime.random(-30, 30); },
+                scale: function() { return anime.random(0.7, 1.3); },
+                duration: 400,
+                easing: 'easeOutQuad'
+            });
+        }
+        function resetLetters(changeQuote) {
+            if (currentAnimation) currentAnimation.pause();
+            let spans = getSpans();
+            if (changeQuote) {
+                anime({
+                    targets: spans,
+                    opacity: 0,
+                    duration: 200,
+                    easing: 'easeOutQuad',
+                    complete: function() {
+                        if (!isHovering) {
+                            quoteIndex = (quoteIndex + 1) % quotes.length;
+                            setQuote(quoteIndex);
+                            spans = getSpans();
+                            anime.set(spans, {
+                                translateX: 0,
+                                translateY: 0,
+                                scale: 1,
+                                opacity: 0
+                            });
+                            anime({
+                                targets: spans,
+                                opacity: 1,
+                                duration: 250,
+                                easing: 'easeInQuad'
+                            });
+                        }
+                        pendingQuoteChange = false;
+                    }
+                });
+            }
+            currentAnimation = anime({
+                targets: spans,
+                translateX: 0,
+                translateY: 0,
+                scale: 1,
+                duration: 250,
+                easing: 'easeOutCirc'
+            });
+        }
+        quoteContainer.addEventListener('mouseenter', function() {
+            isHovering = true;
+            pendingQuoteChange = false;
+            scrambleLetters();
+        });
+        let lastMoveTime = 0;
+        quoteContainer.addEventListener('mousemove', function(e) {
+            if (!isHovering) return;
+            const now = Date.now();
+            if (now - lastMoveTime > 50) {
+                lastMoveTime = now;
+                scrambleLetters();
+            }
+        });
+        quoteContainer.addEventListener('mouseleave', function() {
+            isHovering = false;
+            pendingQuoteChange = true;
+            resetLetters(true);
+        });
+    }
+
+
+    document.querySelector('#fourthForm .next-btn').addEventListener('click', function(e) {
+        if (selectedTags.length < 1 || selectedTags.length > 10) {
+            showTagWarning('Select between 1 and 10 tags.');
+            return;
+        }
+        const summary = document.getElementById('confirmationSummary');
+        summary.innerHTML = `
+            <div style='margin-bottom:1.2em;'><b>Project Name:</b> ${formData.projectName || ''}</div>
+            <div style='margin-bottom:1.2em;'><b>Description:</b> ${formData.projectDescription || ''}</div>
+            <div style='margin-bottom:1.2em;'><b>Visibility:</b> ${formData.visibility || 'private'}</div>
+            <div style='margin-bottom:1.2em;'><b>Tags:</b> ${selectedTags.map(t => {
+                const colorChoice = t.colorChoice || '1';
+                const color = COLOR_PALETTE[parseInt(colorChoice)];
+                const bgColor = color.replace('rgb', 'rgba').replace(')', ', 0.92)');
+                return `<span class='tag-pill' style='--tag-bg:${bgColor};margin-right:0.3em;'>${t.text}</span>`;
+            }).join('')}</div>
+        `;
+        transitionForms(document.getElementById('fourthForm'), document.getElementById('confirmationForm'), true);
+    });
+
+    document.querySelector('#confirmationForm .cancel-btn').addEventListener('click', function(e) {
+        transitionForms(document.getElementById('confirmationForm'), document.getElementById('fourthForm'), false);
+    });
+
+    const submitBtn = document.querySelector('#confirmationForm .next-btn');
+    submitBtn.addEventListener('click', async function(e) {
+        if (submitBtn.disabled) return;
+        submitBtn.disabled = true;
+
+        if (!formData.projectName || formData.projectName.length < 3 || formData.projectName.length > 64) {
+            alert('Project name must be 3-64 characters.');
+            transitionForms(document.getElementById('confirmationForm'), document.getElementById('projectNameForm'), false);
+            submitBtn.disabled = false;
+            return;
+        }
+        if (!formData.projectDescription || formData.projectDescription.length < 1 || formData.projectDescription.length > 99) {
+            alert('Description must be 1-99 characters.');
+            transitionForms(document.getElementById('confirmationForm'), document.getElementById('emptyForm'), false);
+            submitBtn.disabled = false;
+            return;
+        }
+        if (!formData.visibility) formData.visibility = 'private';
+        if (selectedTags.length < 1 || selectedTags.length > 10) {
+            alert('Select between 1 and 10 tags.');
+            transitionForms(document.getElementById('confirmationForm'), document.getElementById('fourthForm'), false);
+            submitBtn.disabled = false;
+            return;
+        }
+
+        const tag_Text = selectedTags.map(t => t.text);
+        const tag_Colors = selectedTags.map(t => t.colorChoice); 
+        const tagTextString = tag_Text.join(',');
+        const tagColorsString = tag_Colors.join(',');
+
+        try {
+            const user = await window.account.get();
+            const cardData = {
+                title: formData.projectName,
+                description: formData.projectDescription,
+                userId: user.$id,
+                visibility: formData.visibility,
+                tag_Text: tagTextString,
+                tag_Colors: tagColorsString,
+                last_modified: new Date().toISOString(),
+                createdD: new Date().toISOString()
+            };
+
+
+            await databases.createDocument(
+                DATABASE_ID,
+                COLLECTION_ID,
+                Appwrite.ID.unique(),
+
+
+                
+                cardData
+            );
+
+            console.log('Card creation was a success!');
+            window.location.href = 'index.html';
+        } catch (err) {
+            alert('Error creating project: ' + (err.message || err));
+            submitBtn.disabled = false;
+
+            window.location.href = 'index.html';
+        }
+    });
+});
+
+(function() {
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('fade-in');
+    });
+
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (link && link.getAttribute('href') && link.getAttribute('href').match(/Home\.html$/i)) {
+            e.preventDefault();
+            document.body.classList.remove('fade-in');
+            setTimeout(function() {
+                window.location = link.href.replace('Home.html', 'index.html');
+            }, 500);
+        }
+    });
+})();
+</script>
+</html> 
